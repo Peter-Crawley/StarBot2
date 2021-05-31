@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+	<Properties>
+		<Property name="basePath">./logs/</Property>
+		<Property name="pattern">[%-5level][%d{dd-MM-yy HH:mm:ss}][%-18c{1}]: %msg%n</Property>
+	</Properties>
+
+	<Appenders>
+		<RollingFile name="fileLogger" fileName="${basePath}/latest.log" filePattern="${basePath}/%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>${pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+		</RollingFile>
+
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${pattern}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="fileLogger"/>
+		</Root>
+	</Loggers>
+</Configuration>
